@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>STEAL THE COOKIE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Full Screen Canvas Game Engine -->
+  <div id="game-app">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Minimal Translucent Game HUD (Overlay) -->
+    <div id="hud" class="hud-layer">
+      <!-- Top Left: Stage & Time -->
+      <div class="hud-group hud-left">
+        <div class="hud-item">
+          <span class="hud-label">STAGE</span>
+          <span class="hud-value" id="hudStage">01<span class="hud-sub">/07</span></span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">TIME</span>
+          <span class="hud-value mono" id="hudTime">00:00</span>
+        </div>
+      </div>
+
+      <!-- Top Center: Minimal Gameplay Hint / Level Banner -->
+      <div class="hud-group hud-center">
+        <div id="hudHint" class="hud-hint">CATCH THE COOKIE</div>
+      </div>
+
+      <!-- Top Right: Score & Controls -->
+      <div class="hud-group hud-right">
+        <div class="hud-item">
+          <span class="hud-label">SCORE</span>
+          <span class="hud-value mono" id="hudScore">0000</span>
+        </div>
+        <div class="hud-controls">
+          <button id="btnSound" class="hud-btn" title="Toggle Sound" aria-label="Toggle Sound">
+            <span id="soundIcon">🔊</span>
+          </button>
+          <button id="btnRestart" class="hud-btn" title="Quick Restart" aria-label="Restart">
+            <span>↺</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arcade Start Screen Overlay -->
+    <div id="startOverlay" class="screen-overlay active">
+      <div class="start-box">
+        <div class="start-cookie-preview">
+          <div class="glow-orb"></div>
+          <div class="hero-cookie-icon">🍪</div>
+        </div>
+        <h1 class="game-brand">STEAL THE COOKIE</h1>
+        <p class="game-tagline">Catch it if you can.</p>
+        <button id="btnStartGame" class="arcade-start-btn">
+          <span class="btn-text">PLAY GAME</span>
+          <span class="btn-subtext">CLICK / SPACE</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dramatic Ending Cutscene / Score Card Overlay -->
+    <div id="endOverlay" class="screen-overlay">
+      <div class="ending-box" id="endingCard">
+        <!-- Stage 1 of Ending: COOKIE STOLEN! -->
+        <div id="endingPhase1" class="ending-phase">
+          <h2 class="stolen-title">COOKIE STOLEN!</h2>
+          <p class="stolen-sub">HEIST COMPLETED</p>
+        </div>
+
+        <!-- Stage 2 of Ending: WHO STOLE IT?! -->
+        <div id="endingPhase2" class="ending-phase hidden">
+          <div class="whodunit-header">
+            <span class="whodunit-tag">WAIT...</span>
+            <h2 class="whodunit-title">WHO STOLE THE COOKIE? 👀</h2>
+          </div>
+          
+          <div class="suspect-canvas-wrap">
+            <canvas id="suspectCanvas" width="180" height="150"></canvas>
+            <div class="suspect-speech">
+              "Om nom nom... I couldn't help myself! 🤤🍪"
+            </div>
+          </div>
+
+          <div class="end-stats-grid">
+            <div class="stat-cell">
+              <span class="s-label">FINAL SCORE</span>
+              <span class="s-val" id="endScore">0000</span>
+            </div>
+            <div class="stat-cell">
+              <span class="s-label">TOTAL TIME</span>
+              <span class="s-val" id="endTime">00:00</span>
+            </div>
+            <div class="stat-cell">
+              <span class="s-label">CLICKS & TAPS</span>
+              <span class="s-val" id="endClicks">0</span>
+            </div>
+            <div class="stat-cell highlight">
+              <span class="s-label">RANK</span>
+              <span class="s-val">MASTER THIEF 👑</span>
+            </div>
+          </div>
+
+          <button id="btnPlayAgain" class="arcade-start-btn restart-btn">
+            <span class="btn-text">PLAY AGAIN</span>
+            <span class="btn-subtext">SPACE / ENTER / TAP</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
